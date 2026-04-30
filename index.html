@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iago Cazzuni — Analista de Dados &amp; Especialista em Automação com IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════════ */
+    :root {
+      --bg:        #0D1117;
+      --bg-card:   #161B22;
+      --green:     #2EA043;
+      --green-hi:  #3FB950;
+      --blue:      #58A6FF;
+      --purple:    #7C3AED;
+      --purple-hi: #A78BFA;
+      --orange:    #E07B39;
+      --text:      #E6EDF3;
+      --muted:     #8B949E;
+      --border:    #30363D;
+      --font:      'Inter', sans-serif;
+      --mono:      'JetBrains Mono', monospace;
+      --radius:    12px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ═══════════════════════════════════════════════
+       BACKGROUND ATMOSPHERE
+    ═══════════════════════════════════════════════ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 40%, rgba(46,160,67,.07) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 85% 15%, rgba(88,166,255,.07) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 60% 85%, rgba(124,58,237,.05) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(48,54,61,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(48,54,61,.12) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════════ */
+    main { position: relative; z-index: 1; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 5.5rem 0; }
+
+    /* ═══════════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════════ */
+    #site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      height: 64px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(13,17,23,.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: background .3s, border-color .3s;
+    }
+    #site-header.scrolled {
+      background: rgba(13,17,23,.92);
+      border-bottom-color: var(--border);
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      flex-shrink: 0;
+    }
+    .logo-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2.4s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.75); }
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: .15rem;
+    }
+    nav a {
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: .38rem .75rem;
+      border-radius: 6px;
+      transition: color .2s, background .2s;
+    }
+    nav a:hover { color: var(--text); background: rgba(48,54,61,.5); }
+    nav a.active { color: var(--green); }
+
+    .btn-cv {
+      background: var(--green) !important;
+      color: #fff !important;
+      font-size: .8rem !important;
+      font-weight: 600 !important;
+      padding: .38rem 1rem !important;
+      border-radius: 6px !important;
+      transition: background .2s, transform .2s, box-shadow .2s !important;
+    }
+    .btn-cv:hover {
+      background: var(--green-hi) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 14px rgba(46,160,67,.35) !important;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--text);
+      transition: transform .3s, opacity .3s;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav overlay */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        position: fixed;
+        top: 64px;
+        inset-inline: 0;
+        flex-direction: column;
+        background: rgba(13,17,23,.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+        gap: .25rem;
+        z-index: 199;
+      }
+      nav.open { display: flex; }
+      nav a { padding: .75rem 1rem; font-size: .95rem; border-radius: 8px; }
+      .hamburger { display: flex; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTION HEADER HELPERS
+    ═══════════════════════════════════════════════ */
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: .75rem;
+    }
+    .label::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--green);
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -.04em;
+      line-height: 1.15;
+      margin-bottom: .6rem;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 580px;
+    }
+    .section-header { margin-bottom: 3rem; }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════ */
+    #sobre {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 64px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-content { }
+    .hero-content .label { margin-bottom: 1.1rem; }
+
+    h1.hero-name {
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -.05em;
+      line-height: 1;
+      margin-bottom: .5rem;
+      background: linear-gradient(160deg, var(--text) 40%, rgba(230,237,243,.55));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-role {
+      font-family: var(--mono);
+      font-size: clamp(.8rem, 2vw, 1rem);
+      color: var(--green);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-bio {
+      color: var(--muted);
+      font-size: .93rem;
+      line-height: 1.8;
+      max-width: 580px;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Badges */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 500;
+      padding: .22rem .6rem;
+      border-radius: 4px;
+      border: 1px solid;
+      transition: transform .15s;
+    }
+    .badge:hover { transform: translateY(-1px); }
+    .badge-green  { color: var(--green);    background: rgba(46,160,67,.1);   border-color: rgba(46,160,67,.3); }
+    .badge-blue   { color: var(--blue);     background: rgba(88,166,255,.1);  border-color: rgba(88,166,255,.3); }
+    .badge-orange { color: var(--orange);   background: rgba(224,123,57,.1);  border-color: rgba(224,123,57,.3); }
+    .badge-gray   { color: var(--muted);    background: rgba(139,148,158,.08);border-color: rgba(139,148,158,.2); }
+    .badge-purple { color: var(--purple-hi);background: rgba(124,58,237,.12); border-color: rgba(124,58,237,.28); }
+
+    /* CTA buttons */
+    .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .62rem 1.4rem;
+      border-radius: 8px;
+      font-size: .875rem;
+      font-weight: 600;
+      transition: all .22s;
+      border: 1px solid transparent;
+    }
+    .btn-filled-green {
+      background: var(--green);
+      color: #fff;
+    }
+    .btn-filled-green:hover {
+      background: var(--green-hi);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46,160,67,.35);
+    }
+    .btn-outlined {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-outlined:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(88,166,255,.15);
+    }
+    .btn-filled-blue {
+      background: var(--blue);
+      color: #0D1117;
+      font-weight: 700;
+    }
+    .btn-filled-blue:hover {
+      background: #79BAFF;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(88,166,255,.35);
+    }
+    .btn-disabled {
+      background: transparent;
+      color: var(--muted);
+      border-color: var(--border);
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    /* Photo */
+    .hero-photo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .photo-ring-outer {
+      position: relative;
+      width: 216px;
+      height: 216px;
+      border-radius: 50%;
+      /* conic spinning border */
+    }
+    .photo-ring-outer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(var(--green), var(--blue), var(--purple), var(--green));
+      animation: spin-border 6s linear infinite;
+    }
+    .photo-ring-outer::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+    @keyframes spin-border {
+      to { transform: rotate(360deg); }
+    }
+    .photo-inner {
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .photo-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1C2128, #21262D);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      gap: .2rem;
+    }
+    .photo-fallback small {
+      font-size: .6rem;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+      }
+      .hero-photo-wrap { order: -1; }
+      .photo-ring-outer { width: 166px; height: 166px; }
+      .label { justify-content: center; }
+      .badges { justify-content: center; }
+      .cta-row { justify-content: center; }
+      .hero-bio { text-align: left; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       PROJECTS
+    ═══════════════════════════════════════════════ */
+    #projetos { border-top: 1px solid var(--border); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      section { padding: 3.5rem 0; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .card:hover {
+      border-color: var(--green);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(46,160,67,.14), 0 4px 16px rgba(0,0,0,.35);
+    }
+    .card:hover::after { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .card-emoji { font-size: 2rem; line-height: 1; }
+
+    .card-badge {
+      font-family: var(--mono);
+      font-size: .68rem;
+      font-weight: 500;
+      padding: .18rem .6rem;
+      border-radius: 20px;
+      border: 1px solid;
+    }
+    .cb-green  { color: var(--green);    background: rgba(46,160,67,.12);   border-color: rgba(46,160,67,.25); }
+    .cb-blue   { color: var(--blue);     background: rgba(88,166,255,.12);  border-color: rgba(88,166,255,.25); }
+    .cb-purple { color: var(--purple-hi);background: rgba(124,58,237,.12);  border-color: rgba(124,58,237,.28); }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -.025em;
+      line-height: 1.3;
+      margin-bottom: .7rem;
+    }
+    .card p {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.15rem;
+      flex: 1;
+    }
+
+    .stack-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .38rem;
+      margin-bottom: 1rem;
+    }
+    .pill {
+      font-family: var(--mono);
+      font-size: .68rem;
+      padding: .18rem .52rem;
+      border-radius: 4px;
+      border: 1px solid;
+    }
+    .pill-green  { color: var(--green);    background: rgba(46,160,67,.08);   border-color: rgba(46,160,67,.25); }
+    .pill-blue   { color: var(--blue);     background: rgba(88,166,255,.08);  border-color: rgba(88,166,255,.25); }
+    .pill-orange { color: var(--orange);   background: rgba(224,123,57,.08);  border-color: rgba(224,123,57,.25); }
+    .pill-gray   { color: var(--muted);    background: rgba(139,148,158,.07); border-color: rgba(139,148,158,.18); }
+    .pill-purple { color: var(--purple-hi);background: rgba(124,58,237,.08);  border-color: rgba(124,58,237,.25); }
+
+    .card-note {
+      font-size: .75rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: .9rem;
+    }
+    .card-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .card-actions .btn { font-size: .8rem; padding: .38rem .9rem; }
+
+    /* ═══════════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════════ */
+    #contato { border-top: 1px solid var(--border); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      text-align: center;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .contact-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      inset-inline: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      transform: scaleX(0);
+      transition: transform .35s;
+    }
+    .contact-card:hover {
+      border-color: rgba(88,166,255,.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,.35);
+    }
+    .contact-card:hover::after { transform: scaleX(1); }
+
+    .contact-icon  { font-size: 2rem; display: block; margin-bottom: .6rem; }
+    .contact-label {
+      font-family: var(--mono);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      display: block;
+      margin-bottom: .3rem;
+    }
+    .contact-value {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════ */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    footer strong { color: var(--green); font-weight: 500; }
+
+    /* ═══════════════════════════════════════════════
+       FADE-UP ANIMATION
+    ═══════════════════════════════════════════════ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       MODAL
+    ═══════════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: #0D1117;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(.96) translateY(12px);
+      transition: transform .25s;
+    }
+    .modal-overlay.open .modal { transform: none; }
+
+    .modal::-webkit-scrollbar { width: 5px; }
+    .modal::-webkit-scrollbar-track { background: var(--bg-card); }
+    .modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .modal-head {
+      position: sticky;
+      top: 0;
+      background: #0D1117;
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 1.5rem 0;
+      z-index: 1;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .modal-close:hover { background: var(--border); color: var(--text); }
+
+    .modal-head h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      padding-right: 2.5rem;
+      margin-bottom: .25rem;
+    }
+    .modal-head p {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: .7rem;
+    }
+    .sim-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: .68rem;
+      background: var(--border);
+      color: var(--muted);
+      padding: .18rem .6rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-top: .5rem;
+    }
+    .tab-btn {
+      padding: .45rem 1rem;
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color .2s, border-color .2s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+    .modal-body { padding: 1.5rem; }
+
+    .tab-pane { display: none; }
+    .tab-pane.active {
+      display: block;
+      animation: fadein .2s ease;
+    }
+    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 2.75rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green), rgba(46,160,67,.1));
+    }
+
+    .tl-step { position: relative; margin-bottom: 2rem; }
+    .tl-step:last-child { margin-bottom: 0; }
+
+    .tl-num {
+      position: absolute;
+      left: -2.75rem;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: .68rem;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 0 14px rgba(46,160,67,.4);
+      z-index: 1;
+    }
+    .tl-header {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      margin-bottom: .45rem;
+    }
+    .tl-icon { font-size: 1.1rem; }
+    .tl-title { font-size: .95rem; font-weight: 600; color: var(--text); }
+
+    .tl-desc {
+      font-size: .84rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: .7rem;
+    }
+    .tl-branches {
+      padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .38rem;
+      margin-bottom: .7rem;
+    }
+    .tl-branch {
+      font-size: .8rem;
+      color: var(--muted);
+      display: flex;
+      gap: .4rem;
+      align-items: flex-start;
+    }
+    .tl-branch::before { content: '→'; color: var(--green); flex-shrink: 0; }
+
+    .action-pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: .68rem;
+      padding: .18rem .6rem;
+      border-radius: 20px;
+      background: rgba(124,58,237,.15);
+      color: var(--purple-hi);
+      border: 1px solid rgba(124,58,237,.28);
+    }
+
+    /* ── Chat ── */
+    .chat-wrap {
+      background: #010409;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: .95rem;
+    }
+
+    .chat-sys { text-align: center; }
+    .chat-sys-pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--border);
+      padding: .22rem .8rem;
+      border-radius: 20px;
+    }
+
+    .chat-row { display: flex; align-items: flex-end; gap: .65rem; }
+    .chat-row.right { flex-direction: row-reverse; }
+
+    .chat-av {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #21262D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .72rem;
+      flex-shrink: 0;
+    }
+
+    .chat-msg { max-width: 78%; }
+    .chat-name {
+      font-size: .68rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: .28rem;
+    }
+    .chat-row:not(.right) .chat-name { color: var(--green); }
+    .chat-row.right .chat-name { color: var(--blue); text-align: right; }
+
+    .chat-bubble {
+      padding: .6rem .85rem;
+      border-radius: 10px;
+      font-size: .82rem;
+      line-height: 1.55;
+    }
+    .chat-row:not(.right) .chat-bubble {
+      background: #21262D;
+      color: var(--text);
+      border-bottom-left-radius: 3px;
+    }
+    .chat-row.right .chat-bubble {
+      background: var(--blue);
+      color: #0D1117;
+      font-weight: 500;
+      border-bottom-right-radius: 3px;
+    }
+
+    .ticket {
+      font-family: var(--mono);
+      font-size: .78em;
+      background: rgba(0,0,0,.25);
+      padding: .1em .3em;
+      border-radius: 3px;
+    }
+    .status-ok {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--green);
+      background: rgba(46,160,67,.12);
+      border: 1px solid rgba(46,160,67,.25);
+      padding: .15rem .5rem;
+      border-radius: 4px;
+    }
+
+    /* ── Card Media (GIF preview) ── */
+    .card-media {
+      border-radius: 8px;
+      overflow: hidden;
+      margin: .25rem 0 1rem;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      position: relative;
+      max-height: 175px;
+    }
+    .card-media img {
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s;
+    }
+    .card-media:hover img { transform: scale(1.04); }
+    .card-media-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.42);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .card-media:hover .card-media-overlay { opacity: 1; }
+    .card-media-overlay span {
+      font-size: .78rem;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(0,0,0,.55);
+      padding: .3rem 1rem;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── GIF Viewer Modal ── */
+    .gif-modal-inner { max-width: 820px; }
+    .gif-modal-body {
+      padding: 1.25rem;
+      text-align: center;
+      background: #010409;
+    }
+    .gif-modal-body img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    /* ── Prompt Doc ── */
+    .prompt-doc { font-size: .84rem; line-height: 1.7; }
+    .prompt-header {
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .prompt-title-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .3rem;
+      flex-wrap: wrap;
+    }
+    .prompt-type-badge {
+      font-family: var(--mono);
+      font-size: .65rem;
+      padding: .15rem .55rem;
+      border-radius: 4px;
+      background: rgba(88,166,255,.12);
+      color: var(--blue);
+      border: 1px solid rgba(88,166,255,.25);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      flex-shrink: 0;
+    }
+    .prompt-title { font-size: .95rem; font-weight: 700; color: var(--text); }
+    .prompt-meta { font-size: .77rem; color: var(--muted); }
+    .prompt-step {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(48,54,61,.55);
+    }
+    .prompt-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .prompt-step-label {
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--green);
+      margin-bottom: .65rem;
+    }
+    .prompt-note { font-size: .77rem; color: var(--muted); font-style: italic; margin-bottom: .5rem; }
+    .prompt-step p { margin-bottom: .55rem; color: #C9D1D9; }
+    .pv {
+      font-family: var(--mono);
+      font-size: .8em;
+      background: rgba(88,166,255,.12);
+      color: var(--blue);
+      border: 1px solid rgba(88,166,255,.22);
+      padding: .04em .32em;
+      border-radius: 3px;
+    }
+    .pv-val {
+      font-family: var(--mono);
+      font-size: .8em;
+      background: rgba(46,160,67,.1);
+      color: var(--green);
+      border: 1px solid rgba(46,160,67,.22);
+      padding: .04em .32em;
+      border-radius: 3px;
+    }
+    .pv-link {
+      font-family: var(--mono);
+      font-size: .8em;
+      background: rgba(124,58,237,.12);
+      color: var(--purple-hi);
+      border: 1px solid rgba(124,58,237,.25);
+      padding: .04em .32em;
+      border-radius: 3px;
+    }
+    .prompt-msg {
+      background: #010409;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      padding: .8rem 1rem;
+      margin: .6rem 0;
+      font-size: .81rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .prompt-rules {
+      display: flex;
+      flex-direction: column;
+      gap: .38rem;
+      margin-top: .75rem;
+    }
+    .prompt-rule {
+      font-family: var(--mono);
+      font-size: .74rem;
+      padding: .28rem .7rem;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      width: fit-content;
+    }
+    .prompt-rule.deny { background: rgba(248,81,73,.08); color: #F85149; border: 1px solid rgba(248,81,73,.2); }
+    .prompt-rule.add  { background: rgba(46,160,67,.08);  color: var(--green); border: 1px solid rgba(46,160,67,.2); }
+    .prompt-rule.info { background: rgba(139,148,158,.07); color: var(--muted); border: 1px solid rgba(139,148,158,.18); }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header id="site-header">
+  <a href="#sobre" class="logo">
+    <span class="logo-pulse"></span>
+    Iago Cazzuni
+  </a>
+
+  <nav id="main-nav">
+    <a href="#sobre">Sobre mim</a>
+    <a href="#projetos">Projetos</a>
+    <a href="#contato">Contato</a>
+    <a href="cv.pdf" target="_blank" rel="noopener" class="btn-cv">Ver CV</a>
+  </nav>
+
+  <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="sobre">
+    <div class="container">
+      <div class="hero-grid">
+
+        <div class="hero-content fade-up">
+          <h1 class="hero-name">Iago Gohl<br>Cazzuni</h1>
+          <p class="hero-role">Analista de Dados &amp; Especialista em Automação com IA</p>
+          <p class="hero-bio">
+            Profissional com mais de 6 anos de experiência em análise de dados, Business Intelligence
+            e automação. Especializado em transformar dados em decisões — e decisões em produtos. Nos
+            últimos meses, expandi minha atuação para o desenvolvimento de agentes de IA aplicados a
+            problemas reais de negócio: automação de atendimento via WhatsApp, análise fundamentalista
+            de empresas listadas na B3 e automação de processos internos em fintech. Formação em
+            Ciências Econômicas (PUC Minas), certificação ANCORD e Databricks Generative AI.
+            Inglês avançado (C1).
+          </p>
+
+          <div class="badges">
+            <span class="badge badge-green">Python</span>
+            <span class="badge badge-green">OpenAI API</span>
+            <span class="badge badge-green">FastAPI</span>
+            <span class="badge badge-blue">SQL</span>
+            <span class="badge badge-blue">PostgreSQL</span>
+            <span class="badge badge-blue">Streamlit</span>
+            <span class="badge badge-orange">Power BI</span>
+            <span class="badge badge-orange">DAX</span>
+            <span class="badge badge-gray">HTML</span>
+            <span class="badge badge-gray">CSS</span>
+            <span class="badge badge-gray">JavaScript</span>
+          </div>
+
+          <div class="cta-row">
+            <a href="#projetos" class="btn btn-filled-green">Ver Projetos</a>
+            <a href="https://www.linkedin.com/in/iago-cazzuni/" target="_blank" rel="noopener" class="btn btn-outlined">LinkedIn ↗</a>
+          </div>
+        </div>
+
+        <div class="hero-photo-wrap fade-up" style="transition-delay:.15s">
+          <div class="photo-ring-outer">
+            <div class="photo-inner" id="photo-inner">
+              <img
+                src="Foto perfil.png"
+                alt="Iago Cazzuni"
+                id="hero-img"
+                onerror="document.getElementById('photo-fallback').style.display='flex';this.style.display='none';"
+              />
+              <div class="photo-fallback" id="photo-fallback" style="display:none">
+                👤
+                <small>foto.jpg</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PROJECTS ═══════════════ -->
+  <section id="projetos">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <span class="label">// Portfólio</span>
+        <h2 class="section-title">Projetos</h2>
+        <p class="section-sub">Agentes de IA e produtos digitais aplicados a problemas reais de negócio</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Card 1 -->
+        <div class="card fade-up" style="transition-delay:.1s">
+          <div class="card-top">
+            <span class="card-emoji">🤖</span>
+            <span class="card-badge cb-green">AI Agent</span>
+          </div>
+          <h3>Bot de Atendimento — Consultório Médico</h3>
+          <p>
+            Agente de IA para automação de atendimento via WhatsApp. Realiza agendamento de consultas,
+            cancelamentos, triagem de sintomas e encaminhamento de urgências — integrando com Google
+            Calendar em tempo real. Demonstra aplicação prática de automação de canal digital com IA
+            generativa.
+          </p>
+          <div class="card-media" onclick="openGifModal('GIF Clinica BOT.gif', 'Bot de Atendimento — Consultório Médico')">
+            <img src="GIF Clinica BOT.gif" alt="Demo Bot de Atendimento" />
+            <div class="card-media-overlay"><span>▶ Expandir</span></div>
+          </div>
+          <div class="stack-row">
+            <span class="pill pill-green">Python</span>
+            <span class="pill pill-green">OpenAI</span>
+            <span class="pill pill-green">FastAPI</span>
+            <span class="pill pill-gray">Twilio</span>
+            <span class="pill pill-blue">Google Calendar API</span>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/iagocazzuni1/clinical_bot" target="_blank" rel="noopener" class="btn btn-outlined">GitHub ↗</a>
+            <button class="btn btn-filled-blue" onclick="openGifModal('GIF Clinica BOT.gif', 'Bot de Atendimento — Consultório Médico')">Ver Demo</button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card fade-up" style="transition-delay:.2s">
+          <div class="card-top">
+            <span class="card-emoji">📊</span>
+            <span class="card-badge cb-green">AI Agent</span>
+          </div>
+          <h3>Analista de Balanços — Mercado Financeiro</h3>
+          <p>
+            Agente de IA que lê releases de resultados (PDF) de empresas listadas na B3, extrai
+            indicadores fundamentalistas (ROE, ROIC, Margem Líquida, Dívida/EBITDA), compara com
+            benchmarks de setor e gera análise narrativa para apoio à tomada de decisão no mercado
+            financeiro.
+          </p>
+          <div class="card-media" onclick="openGifModal('GIF BUFFET AI.gif', 'Analista de Balanços — Mercado Financeiro')">
+            <img src="GIF BUFFET AI.gif" alt="Demo Analista de Balanços" />
+            <div class="card-media-overlay"><span>▶ Expandir</span></div>
+          </div>
+          <div class="stack-row">
+            <span class="pill pill-green">Python</span>
+            <span class="pill pill-green">OpenAI</span>
+            <span class="pill pill-blue">Streamlit</span>
+            <span class="pill pill-gray">pdfplumber</span>
+            <span class="pill pill-blue">Plotly</span>
+            <span class="pill pill-gray">yfinance</span>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/iagocazzuni1/buffetai" target="_blank" rel="noopener" class="btn btn-outlined">GitHub ↗</a>
+            <button class="btn btn-filled-blue" onclick="openGifModal('GIF BUFFET AI.gif', 'Analista de Balanços — Mercado Financeiro')">Ver Demo</button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card fade-up" style="transition-delay:.3s">
+          <div class="card-top">
+            <span class="card-emoji">💰</span>
+            <span class="card-badge cb-purple">Internal Project 🔒</span>
+          </div>
+          <h3>Agente de Automação — Remuneração Variável</h3>
+          <p>
+            Agente desenvolvido internamente em fintech financeira para automatizar o processo de
+            cálculo e distribuição de comissões. Recebe relatório do banco, separa receitas por
+            Consultor e Especialista com regra de co-participação, abre chamados VAR para conferência
+            do realizado vs esperado e gerencia tickets de divergência — com handoff para análise
+            humana nos casos de FEE FIXO e divisão de receita.
+          </p>
+          <div class="stack-row">
+            <span class="pill pill-green">Python</span>
+            <span class="pill pill-green">OpenAI</span>
+            <span class="pill pill-gray">Automação de Canal Digital</span>
+            <span class="pill pill-purple">Gestão de Tickets</span>
+          </div>
+          <p class="card-note">Projeto confidencial — interface simulada para fins de portfólio</p>
+          <div class="card-actions">
+            <button class="btn btn-filled-green" onclick="openModal()">Ver Fluxo do Agente</button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card fade-up" style="transition-delay:.4s">
+          <div class="card-top">
+            <span class="card-emoji">💪</span>
+            <span class="card-badge cb-blue">Web App</span>
+          </div>
+          <h3>FluxFit — Plataforma de Nutrição e Treino</h3>
+          <p>
+            Aplicação web freemium de planejamento nutricional e de treinos personalizado. Calcula
+            BMR, TDEE e macros via fórmula Mifflin-St Jeor, gera planos alimentares com receitas e
+            rotinas de treino adaptadas ao objetivo do usuário. Modelo freemium com autenticação
+            Firebase e pagamentos via Stripe.
+          </p>
+          <div class="stack-row">
+            <span class="pill pill-gray">HTML</span>
+            <span class="pill pill-gray">CSS</span>
+            <span class="pill pill-gray">JavaScript</span>
+            <span class="pill pill-orange">Firebase</span>
+            <span class="pill pill-blue">Stripe</span>
+            <span class="pill pill-orange">Firestore</span>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/iagocazzuni1/nutraapp" target="_blank" rel="noopener" class="btn btn-outlined">GitHub ↗</a>
+            <button class="btn btn-filled-blue" onclick="openGifModal('GIF FLUX FIT.gif', 'FluxFit — Plataforma de Nutrição e Treino')">Ver Demo</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT ═══════════════ -->
+  <section id="contato">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <span class="label">// Contato</span>
+        <h2 class="section-title">Contato</h2>
+        <p class="section-sub">Vamos conversar?</p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:iagocazzuni@gmail.com" class="contact-card fade-up" style="transition-delay:.1s">
+          <span class="contact-icon">✉️</span>
+          <span class="contact-label">Email</span>
+          <span class="contact-value">iagocazzuni@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/iago-cazzuni/" target="_blank" rel="noopener" class="contact-card fade-up" style="transition-delay:.2s">
+          <span class="contact-icon">💼</span>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/iago-cazzuni</span>
+        </a>
+        <a href="https://github.com/iagocazzuni1" target="_blank" rel="noopener" class="contact-card fade-up" style="transition-delay:.3s">
+          <span class="contact-icon">🐙</span>
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">github.com/iagocazzuni1</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Desenvolvido por <strong>Iago Cazzuni</strong> · 2025
+</footer>
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div class="modal-overlay" id="modal-var" role="dialog" aria-modal="true" aria-labelledby="modal-h2">
+  <div class="modal" id="modal-card">
+
+    <div class="modal-head">
+      <button class="modal-close" id="modal-close" aria-label="Fechar">✕</button>
+      <h2 id="modal-h2">Agente de Automação — Remuneração Variável</h2>
+      <p>Interface simulada · Projeto interno em fintech financeira</p>
+      <span class="sim-badge">Interface simulada · Não interativo</span>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="fluxo">Fluxo do Agente</button>
+        <button class="tab-btn" data-tab="prompt">Exemplo de Prompt utilizado</button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- ── TAB 1: FLUXO ── -->
+      <div class="tab-pane active" id="tab-fluxo">
+        <div class="timeline">
+
+          <div class="tl-step">
+            <div class="tl-num">1</div>
+            <div class="tl-header">
+              <span class="tl-icon">📥</span>
+              <span class="tl-title">Recebimento e Processamento do Relatório</span>
+            </div>
+            <p class="tl-desc">
+              O agente recebe o relatório de comissões enviado pelo banco e processa automaticamente
+              cada linha de receita.
+            </p>
+            <span class="action-pill">Processar Relatório</span>
+          </div>
+
+          <div class="tl-step">
+            <div class="tl-num">2</div>
+            <div class="tl-header">
+              <span class="tl-icon">👥</span>
+              <span class="tl-title">Separação por Consultor e Especialista</span>
+            </div>
+            <p class="tl-desc">Identifica se houve participação de Especialista na venda.</p>
+            <div class="tl-branches">
+              <span class="tl-branch">Com Especialista → Divisão de receita conforme regra de co-participação</span>
+              <span class="tl-branch">Sem Especialista → 100% da comissão para o Consultor</span>
+            </div>
+          </div>
+
+          <div class="tl-step">
+            <div class="tl-num">3</div>
+            <div class="tl-header">
+              <span class="tl-icon">🎫</span>
+              <span class="tl-title">Abertura do Chamado VAR</span>
+            </div>
+            <p class="tl-desc">
+              Abre automaticamente o chamado VAR para cada Consultor e Especialista com o valor
+              calculado. O profissional acessa o canal e compara Esperado × Realizado.
+            </p>
+            <span class="action-pill">Abrir Chamado VAR</span>
+          </div>
+
+          <div class="tl-step">
+            <div class="tl-num">4</div>
+            <div class="tl-header">
+              <span class="tl-icon">⚠️</span>
+              <span class="tl-title">Gestão de Tickets de Divergência</span>
+            </div>
+            <p class="tl-desc">
+              Caso o profissional identifique divergência, abre um ticket detalhando a inconsistência.
+              Casos mais frequentes: clientes com divisão de receita e FEE FIXO.
+            </p>
+            <span class="action-pill">Abrir Ticket de Divergência</span>
+          </div>
+
+          <div class="tl-step">
+            <div class="tl-num">5</div>
+            <div class="tl-header">
+              <span class="tl-icon">🔍</span>
+              <span class="tl-title">Análise Humana e Resolução</span>
+            </div>
+            <p class="tl-desc">
+              Tickets encaminhados para análise humana. O analista defere ou recusa com justificativa
+              registrada no sistema.
+            </p>
+            <div class="tl-branches">
+              <span class="tl-branch">Deferido ✅ → Ajuste aplicado na comissão</span>
+              <span class="tl-branch">Recusado ❌ → Notificação enviada ao profissional</span>
+            </div>
+            <span class="action-pill">Handoff Humano</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── TAB 2: PROMPT ── -->
+      <div class="tab-pane" id="tab-prompt">
+        <div class="prompt-doc">
+
+          <div class="prompt-header">
+            <div class="prompt-title-row">
+              <span class="prompt-type-badge">Procedure</span>
+              <span class="prompt-title">[VAR] Verificação de Remuneração Variável</span>
+            </div>
+            <p class="prompt-meta">Automação interna · Fintech financeira · Canal de atendimento ao Consultor/Especialista</p>
+          </div>
+
+          <div class="prompt-step">
+            <div class="prompt-step-label">1st Step</div>
+            <p class="prompt-note">Instructions not visible to the user.</p>
+            <p>Check the value of the variable <span class="pv">{user_role}</span> and proceed only if the value is equal to <span class="pv-val">'consultor'</span> or <span class="pv-val">'especialista'</span>. If the value is equal to anything else, link to <span class="pv-link">↗ Encerramento</span>.</p>
+            <p>Only when <span class="pv">{user_role}</span> is valid, check if the variable <span class="pv">{divergencia_aberta}</span> is present. If not present, go to 2nd Step. If it is present, display the following message:</p>
+            <div class="prompt-msg">
+              "Você já possui um chamado de divergência em aberto referente a <span class="pv">{mes_referencia}</span>. O status atual é: <span class="pv">{status_ticket}</span>. Um analista irá retornar em até 2 dias úteis. Posso ajudar com mais alguma coisa?"
+            </div>
+            <p>Go to <span class="pv-link">↗ Encerramento</span>.</p>
+            <div class="prompt-rules">
+              <span class="prompt-rule deny">⊘ Never collect: <span class="pv">{token_banco}</span></span>
+              <span class="prompt-rule add">＋ Add <span class="pv">{LABEL}</span> VAR verificado</span>
+            </div>
+          </div>
+
+          <div class="prompt-step">
+            <div class="prompt-step-label">2nd Step</div>
+            <p>When a <span class="pv">{user_role}</span> equal <span class="pv-val">'consultor'</span> or <span class="pv-val">'especialista'</span> reports a divergence between expected and received compensation, inform them the following:</p>
+            <div class="prompt-msg">
+              "Entendido! Para registrar sua divergência no chamado VAR, preciso das seguintes informações:<br>
+              — Mês de referência<br>
+              — Valor esperado × valor recebido<br>
+              — Operações ou clientes envolvidos<br><br>
+              Casos com <strong>FEE FIXO</strong> ou <strong>Divisão de Receita</strong> passam por análise humana adicional. Se precisar de mais informações, estamos à disposição!"
+            </div>
+            <p>Collect <span class="pv">{motivo_divergencia}</span>, <span class="pv">{valor_esperado}</span>, <span class="pv">{valor_recebido}</span>.</p>
+            <p>If the variable <span class="pv">{tipo_cliente}</span> equals <span class="pv-val">'fee_fixo'</span> or <span class="pv-val">'divisao_receita'</span>, proceed to <span class="pv-link">↗ Handoff Analista</span>.</p>
+            <p>If you have any further questions or need more information, we remain at your disposal!</p>
+            <p>Proceed to <span class="pv-link">↗ Collect NPS response</span>.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /modal-body -->
+  </div><!-- /modal -->
+</div><!-- /modal-overlay -->
+
+<!-- ═══════════════ GIF VIEWER MODAL ═══════════════ -->
+<div class="modal-overlay" id="gif-modal" role="dialog" aria-modal="true" aria-labelledby="gif-title">
+  <div class="modal gif-modal-inner" id="gif-card">
+    <div class="modal-head">
+      <button class="modal-close" id="gif-close" aria-label="Fechar">✕</button>
+      <h2 id="gif-title"></h2>
+    </div>
+    <div class="gif-modal-body">
+      <img id="gif-img" src="" alt="Demo" />
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Header scroll class ── */
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  /* ── Hamburger ── */
+  const burger = document.getElementById('hamburger');
+  const nav    = document.getElementById('main-nav');
+  burger.addEventListener('click', () => {
+    const open = burger.classList.toggle('open');
+    nav.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    nav.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+
+  /* ── Active nav via IntersectionObserver ── */
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
+  const activeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { threshold: 0.45 });
+  sections.forEach(s => activeObs.observe(s));
+
+  /* ── Fade-up on scroll ── */
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+
+  /* ── Modal ── */
+  const overlay   = document.getElementById('modal-var');
+  const closeBtn  = document.getElementById('modal-close');
+
+  function openModal() {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+  /* ── GIF Viewer ── */
+  const gifOverlay = document.getElementById('gif-modal');
+  const gifImg     = document.getElementById('gif-img');
+  const gifTitle   = document.getElementById('gif-title');
+  const gifClose   = document.getElementById('gif-close');
+
+  function openGifModal(src, title) {
+    gifImg.src = src;
+    gifTitle.textContent = title;
+    gifOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    gifClose.focus();
+  }
+  function closeGifModal() {
+    gifOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    gifImg.src = '';
+  }
+  gifClose.addEventListener('click', closeGifModal);
+  gifOverlay.addEventListener('click', e => { if (e.target === gifOverlay) closeGifModal(); });
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeGifModal(); } });
+
+  /* ── Tabs ── */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + id).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
